@@ -2,7 +2,11 @@
   <div >
     <hr />
     <div class="nav">
-      <router-link to="/money" class="item">记账</router-link>
+      <router-link to="/money" class="item">
+      <svg>
+        <use xlink:href="#label"/>
+      </svg>
+      记账</router-link>
 
       <router-link to="/labels" class="item">标签</router-link>
 
@@ -11,8 +15,12 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import x from '@/assets/icon/money.svg';
+console.log(x);
+export default {
+name:'Nav'
+};
 </script>
 
 <style lang="scss" scoped>
