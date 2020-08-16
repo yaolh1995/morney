@@ -1,6 +1,9 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Money from '@/views/Money.vue';
+import Labels from '@/views/Labels.vue';
+import Statistics from '@/views/Statistics.vue';
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import page from '@/views/404page.vue';
 
 Vue.use(VueRouter)
 /* const routeTable={
@@ -9,38 +12,28 @@ Vue.use(VueRouter)
 
   const routes: Array<RouteConfig> = [
     {
-      path: '',
-      name: 'money',
-      component:  () => import(/* webpackChunkName: "about" */ '../views/Money.vue')
+      path: '/',
+      redirect: '/Money'
     },
   {
-    path: '/money',
-    name: 'money',
-    component:  () => import(/* webpackChunkName: "about" */ '../views/Money.vue')
+    path: '/Money',
+    name: 'Money',
+    component: Money
   },
   {
-    path: '/labels',
-    name: 'labels',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Labels.vue')
+    path: '/Labels',
+    name: 'Labels',
+    component:Labels
   },
   {
-    path: '/statistics',
-    name: 'statistics',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Statistics.vue')
+    path: '/Statistics',
+    name: 'Statistics',
+    component:Statistics
   },
   {
     path: '*',
     name: '404',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/404.vue')
+    component: page
   },
 ]
 
