@@ -1,6 +1,11 @@
 <template>
-  <div class="home">
+    <div class="nav-wrapper">
+      <div class="content">
         <h1>记账</h1>
- <Nav/>
-  </div>
+      </div>
+    <Nav />
+        </div>
 </template>
+<script>
+export default {};
+</script>

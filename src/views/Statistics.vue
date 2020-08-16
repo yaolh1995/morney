@@ -1,6 +1,11 @@
 <template>
-  <div class="statistics">
-  <h1>统计</h1>
- <Nav/>
+  <div class="nav-wrapper">
+    <div class="content">
+      <h1>统计</h1>
+    </div>
+    <Nav />
   </div>
 </template>
+<script>
+export default {};
+</script>
