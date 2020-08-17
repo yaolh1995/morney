@@ -1,10 +1,21 @@
+<template>
+  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
+      <slot/>
+    </div>
+    <Nav/>
+  </div>
+</template>
 
-<style lang="scss" >
-* {
-    padding: 0;
-    margin: 0;
-}
-  .nav-wrapper {
+<script lang="ts">
+  export default {
+    props: ['classPrefix'],
+    name: 'Layout'
+  };
+</script>
+
+<style lang="scss" scoped>
+  .layout-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -13,12 +24,4 @@
     overflow: auto;
     flex-grow: 1;
   }
-
 </style>
-<script lang="ts">
-
-export default {
-    name:'Layout'
-}
-
-</script>
