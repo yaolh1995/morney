@@ -5,15 +5,15 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="deleteContent">删除</button>
+      <button @click="removet">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="clearContent">清空</button>
+      <button @click="clear">清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok">OK</button>
+      <button @click="ok" class="ok">OK</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -31,25 +31,31 @@ export default class NumberPad extends Vue {
     if (this.output === "0") {
       if ("0123456789".indexOf(input) >= 0) {
         this.output = input;
-      } else if (input === ".") {
+      } else {
+        this.output += input;
+      }
+    } //首位0情况判断；
+
+    if (this.output.indexOf(".") >= 0) {
+      if ("0123456789".indexOf(input) >= 0) {
         this.output += input;
       }
     } else {
-      if (this.output.indexOf(".") >= 0) {
-        if ("0123456789".indexOf(input) >= 0) {
-          this.output += input;
-        }
+      if (input === ".") {
+        this.output = "0.";
       } else {
         this.output += input;
       }
     }
+  } //首位.情况判断；.只出现一次；
+  clear(event: MouseEvent) {
+    this.output = "0";
   }
-  clearContent(event: MouseEvent) {
-    this.output = "";
-  }
-  deleteContent(event: MouseEvent) {
+  removet(event: MouseEvent) {
     this.output = this.output.substring(0, this.output.length - 1);
+    if(this.output.length===0){this.output="0"};
   }
+  ok(){}//提交output数据；
 }
 </script>
 <style lang="scss" scoped>
