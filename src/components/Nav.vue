@@ -33,6 +33,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: rgb(126, 98, 79);
     .icon {
       width: 32px;
       height: 32px;
