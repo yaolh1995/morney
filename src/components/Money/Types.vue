@@ -8,8 +8,11 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Types'
+import Vue from 'vue';
+import {Component,Prop} from 'vue-property-decorator';
+ @Component
+ export default class Types extends Vue {
+  @Prop(Number) readonly propA: number | undefined
   };
 </script>
 
