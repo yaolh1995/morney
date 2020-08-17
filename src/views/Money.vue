@@ -3,7 +3,7 @@
       <div class="content">
         <h1>记账</h1>
       </div>
-    <Nav />
+    <Nav/>
         </div>
 </template>
 <script>
