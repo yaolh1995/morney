@@ -27,35 +27,34 @@ export default class NumberPad extends Vue {
   output: string = "";
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
-    const input = button.textContent!;
+    const input = button.textContent!; //感叹号
+    if (this.output.length === 16) {
+      return;
+    }
     if (this.output === "0") {
       if ("0123456789".indexOf(input) >= 0) {
         this.output = input;
       } else {
         this.output += input;
       }
+      return;
     } //首位0情况判断；
-
-    if (this.output.indexOf(".") >= 0) {
-      if ("0123456789".indexOf(input) >= 0) {
-        this.output += input;
-      }
-    } else {
-      if (input === ".") {
-        this.output = "0.";
-      } else {
-        this.output += input;
-      }
+    if (this.output.indexOf(".") >= 0 && input === ".") {
+      return;
     }
-  } //首位.情况判断；.只出现一次；
+    //首位.情况判断；.只出现一次；
+    this.output += input;
+  }
   clear(event: MouseEvent) {
     this.output = "0";
   }
   removet(event: MouseEvent) {
     this.output = this.output.substring(0, this.output.length - 1);
-    if(this.output.length===0){this.output="0"};
+    if (this.output.length === 0) {
+      this.output = "0";
+    }
   }
-  ok(){}//提交output数据；
+  ok() {} //提交output数据；
 }
 </script>
 <style lang="scss" scoped>
