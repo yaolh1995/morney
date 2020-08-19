@@ -7,21 +7,18 @@
       <li v-for="tag in dataSource" :key="tag"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        {{ tag }}
+        {{tag}}
       </li>
-      {{ selectedTags }}
     </ul>
   </div>
-
 </template>
 
 <script lang="js">
 export default {
-  props: ['dataSource'],
+  props: ['dataSource' ],
   data: function () {
     return {selectedTags: []}
   },
-
   methods: {
     toggle(tag) {
       const index = this.selectedTags.indexOf(tag)
@@ -34,7 +31,7 @@ export default {
         name = window.prompt('请输入标签名')
       }
       if (name !== null) {
-        this.$emit('update:tags', [...this.dataSource, name])
+        this.$emit('update:dataSource', [...this.dataSource, name])
       }
     }
   }

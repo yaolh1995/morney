@@ -1,14 +1,12 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad/>
-    <Types/>
-    <Notes/>
-    {{ record }}
-    {{ tags }}
-    {{ selectedTags }}
-    <Tags :data-source.sync="tags"
+    <NumberPad @update:number="onUpdateNumber"
+               @update:record="onUpdateRecord"/>
+    <Types @update:type="onUpdateType"/>
+    <Notes @update:notes="onUpdateNotes"/>
+    <Tags :dataSource.tags.sync="dataSource.tags"
           @update:selectedTags="onUpdateSelectedTags"
-          @update:tags="onUpdateDataSource"
+          @update:dataSource.tags="onUpdateDataSource"
     />
   </Layout>
 </template>
@@ -18,24 +16,29 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from "@/components/Money/Types.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Tags from "@/components/Money/Tags.vue";
+import {Watch} from "vue-property-decorator";
 
+const x = localStorage.getItem('x')
+const dataInit = JSON.parse(x);
 export default {
   name: "Money",
   components: {Tags, Notes, Types, NumberPad},
-  data: function () {
+  data() {
     return {
       dataSource: {
-        tags: [],
+        tags: ['吃饭', '请客', '买', '交通'],
         type: '-',
-        number: 0,
+        number: "0",
         notes: ''
       },
       record: {
         tags: [],
         type: '-',
         number: "0",
-        notes: ''
-      }
+        notes: '',
+        createAt:''
+      },
+      recordList: []
     }
   },
   methods: {
@@ -44,9 +47,31 @@ export default {
     },
     onUpdateSelectedTags(newSelectedTags) {
       this.dataSource.selectedTags = newSelectedTags;
-      this.record.tags = this.selectedTags
+      this.record.tags = this.dataSource.selectedTags
     },
-
+    onUpdateType(type) {
+      this.record.type = type;
+    },
+    onUpdateNotes(value) {
+      this.record.notes = value;
+    },
+    onUpdateNumber(number) {
+      this.record.number = number
+    },
+    onUpdateRecord() {
+      let record1 = JSON.parse(JSON.stringify(this.record))
+      record1.createAt = new Date();
+      this.recordList.push(record1)
+    }
+  },
+  watch: {
+    'recordList': {
+      handler() {
+        window.alert('记了一笔'+"“"+this.record.notes+"”")
+        let save=JSON.stringify(this.recordList)
+        localStorage.setItem("x", save)
+      }
+    }
   }
 };
 </script>

@@ -18,6 +18,7 @@ export default class Types extends Vue {
       throw new Error("type is unknown");
     }
     this.type=type;//=template里的传参
+    this.$emit('update:type',type)
   }
 }
 </script>
