@@ -3,7 +3,7 @@
     <NumberPad/>
     <Types/>
     <Notes/>
-    {{record}}
+    {{ record }}
     {{ tags }}
     {{ selectedTags }}
     <Tags :data-source.sync="tags"
@@ -24,13 +24,12 @@ export default {
   components: {Tags, Notes, Types, NumberPad},
   data: function () {
     return {
-
       tags: [
         '1', '2', '3', '4'
       ],
       selectedTags: [],
-      type:['-'],
-      record:{tags:{},type:['-']}
+      type: ['-'],
+      record: {tags:[ '1', '2', '3', '4'], type: '-'}
     }
   },
   methods: {
@@ -39,7 +38,7 @@ export default {
     },
     onUpdateSelectedTags(newSelectedTags) {
       this.selectedTags = newSelectedTags;
-      this.record.tags.push(this.selectedTags)
+      this.record.tags=this.selectedTags
     }
   }
 };
