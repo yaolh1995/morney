@@ -9,7 +9,6 @@
         </div>
 </template>
 
-<script>
-import Layout from "@/components/Layout.vue";
+<script lang="ts">
 export default {};
 </script>

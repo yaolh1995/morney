@@ -5,7 +5,7 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="removet">删除</button>
+      <button @click="remove">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -24,9 +24,10 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class NumberPad extends Vue {
-  output: string = "";
+  output = "";
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const input = button.textContent!; //感叹号
     if (this.output.length === 16) {
       return;
@@ -48,7 +49,7 @@ export default class NumberPad extends Vue {
   clear(event: MouseEvent) {
     this.output = "0";
   }
-  removet(event: MouseEvent) {
+  remove(event: MouseEvent) {
     this.output = this.output.substring(0, this.output.length - 1);
     if (this.output.length === 0) {
       this.output = "0";
@@ -58,7 +59,7 @@ export default class NumberPad extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
+@import '~@/assets/style/helper.scss';
 .numberPad {
   .output {
     @extend %clearFix;
