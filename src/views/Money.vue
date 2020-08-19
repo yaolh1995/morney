@@ -24,22 +24,29 @@ export default {
   components: {Tags, Notes, Types, NumberPad},
   data: function () {
     return {
-      tags: [
-        '1', '2', '3', '4'
-      ],
-      selectedTags: [],
-      type: ['-'],
-      record: {tags:[ '1', '2', '3', '4'], type: '-'}
+      dataSource: {
+        tags: [],
+        type: '-',
+        number: 0,
+        notes: ''
+      },
+      record: {
+        tags: [],
+        type: '-',
+        number: "0",
+        notes: ''
+      }
     }
   },
   methods: {
     onUpdateDataSource(newTags) {
-      this.tags = newTags
+      this.dataSource.tags = newTags
     },
     onUpdateSelectedTags(newSelectedTags) {
-      this.selectedTags = newSelectedTags;
-      this.record.tags=this.selectedTags
-    }
+      this.dataSource.selectedTags = newSelectedTags;
+      this.record.tags = this.selectedTags
+    },
+
   }
 };
 </script>
