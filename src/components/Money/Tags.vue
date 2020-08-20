@@ -27,12 +27,12 @@ export default class Tags extends Vue {
   };
 
   create() {
-    let name = window.prompt ( '请输入标签名' );
-    while (name === '') {
-      name = window.prompt ( '请输入标签名' );
-    }
-    if (name !== null) {
-      this.$emit ( 'update:dataSource', [...this.dataSource, name] );
+          let name = window.prompt ( '请输入标签名' );
+      while (name === '') {
+        name = window.prompt ( '请输入标签名' );
+      }
+      if (name !== null) {
+        this.$emit ( 'update:dataSource', [...this.dataSource, name] );
     }
   }
 }
