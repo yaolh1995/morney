@@ -7,35 +7,40 @@
       <li v-for="tag in dataSource" :key="tag"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        {{tag}}
+        {{ tag }}
       </li>
     </ul>
   </div>
 </template>
 
-<script lang="js">
-export default {
-  props: ['dataSource' ],
-  data: function () {
-    return {selectedTags: []}
-  },
-  methods: {
-    toggle(tag) {
-      const index = this.selectedTags.indexOf(tag)
-      index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push(tag);
-      this.$emit('update:selectedTags', this.selectedTags)
-    },
-    create: function (name) {
-      name = window.prompt('请输入标签名')
-      while (name === '') {
-        name = window.prompt('请输入标签名')
-      }
-      if (name !== null) {
-        this.$emit('update:dataSource', [...this.dataSource, name])
-      }
+<script lang="ts">
+import Vue from 'vue';
+import {Prop} from 'vue-property-decorator';
+
+export default class Tags extends Vue {
+  @Prop () readonly dataSource: RecordItem | undefined;
+  selectedTags=[];
+  toggle(tag:string|undefined) {
+    const index = this.selectedTags.indexOf (tag);
+    index >= 0 ? this.selectedTags.splice ( index, 1 ) : this.selectedTags.push ( tag );
+    this.$emit ( 'update:selectedTags', this.selectedTags );
+  }
+
+,
+  create:
+
+  function(name) {
+    name = window.prompt ( '请输入标签名' );
+    while (name === '') {
+      name = window.prompt ( '请输入标签名' );
+    }
+    if (name !== null) {
+      this.$emit ( 'update:dataSource', [...this.dataSource, name] );
     }
   }
-};
+}
+}
+;
 </script>
 
 <style lang="scss" scoped>
