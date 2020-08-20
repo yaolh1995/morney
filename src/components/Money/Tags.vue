@@ -15,22 +15,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Prop} from 'vue-property-decorator';
-
+import {Component,Prop} from 'vue-property-decorator';
+@Component
 export default class Tags extends Vue {
-  @Prop () readonly dataSource: RecordItem | undefined;
-  selectedTags=[];
-  toggle(tag:string|undefined) {
-    const index = this.selectedTags.indexOf (tag);
+  @Prop () readonly dataSource!: string[];
+  selectedTags: String[] = [];
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf ( tag );
     index >= 0 ? this.selectedTags.splice ( index, 1 ) : this.selectedTags.push ( tag );
     this.$emit ( 'update:selectedTags', this.selectedTags );
-  }
+  };
 
-,
-  create:
-
-  function(name) {
-    name = window.prompt ( '请输入标签名' );
+  create() {
+    let name = window.prompt ( '请输入标签名' );
     while (name === '') {
       name = window.prompt ( '请输入标签名' );
     }
@@ -39,8 +36,6 @@ export default class Tags extends Vue {
     }
   }
 }
-}
-;
 </script>
 
 <style lang="scss" scoped>

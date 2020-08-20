@@ -20,7 +20,7 @@ import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 
 @Component ( {
-  compents: {NumberPad, Types, Notes, Tags},
+  components: {NumberPad, Types, Notes, Tags},
 } )
 export default class Money extends Vue {
   y = localStorage.getItem ( 'x' )!;
@@ -31,50 +31,47 @@ export default class Money extends Vue {
     number: 0,
     notes: ''
   };
-  record: RecordItem={
+  record: RecordItem = {
     tags: [],
     type: '-',
     number: 0,
     notes: '',
   };
 
-  onUpdateDataSource(newTags) {
+
+  onUpdateDataSource(newTags: string[]) {
     this.dataSource.tags = newTags;
-  }
-,
-  onUpdateSelectedTags(newSelectedTags) {
-    this.dataSource.selectedTags = newSelectedTags;
-    this.record.tags = this.dataSource.selectedTags;
-  }
+  };
 
-,
-  onUpdateType(type) {
+  onUpdateSelectedTags(newSelectedTags: string[]) {
+    this.record.tags = newSelectedTags;
+  };
+
+
+  onUpdateType(type: string) {
     this.record.type = type;
-  }
+  };
 
-,
-  onUpdateNotes(value) {
+  onUpdateNotes(value: string) {
     this.record.notes = value;
-  }
+  };
 
-,
-  onUpdateNumber(number)
+  onUpdateNumber(number: number) {
     this.record.number = number;
-  }
+  };
 
-,
   onUpdateRecord() {
     let record1 = JSON.parse ( JSON.stringify ( this.record ) );
     record1.createAt = new Date ();
-    recordList.push ( record1 );
+    this.recordList.push ( record1 );
+  };
+
+  @Watch ( 'recordList' )
+  onRecordListChange() {
+    window.alert ( '记了一笔' + '“' + this.record.notes + '”' );
+    let save = JSON.stringify ( this.recordList );
+    localStorage.setItem ( 'x', save );
   }
-,
-@Watch ( 'recordList')
-onRecordListChange (){
-  window.alert ( '记了一笔' + '“' + this.record.notes + '”' );
-  let save = JSON.stringify ( this.recordList );
-  localStorage.setItem ( 'x', save );
-}
 }
 </script>
 

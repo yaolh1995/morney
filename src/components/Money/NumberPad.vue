@@ -21,13 +21,12 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 
 @Component
 
 export default class NumberPad extends Vue {
   output = '';
-
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -50,11 +49,10 @@ export default class NumberPad extends Vue {
     this.output += input;
   }
 
-  clear(event: MouseEvent) {
+  clear() {
     this.output = '0';
   }
-
-  remove(event: MouseEvent) {
+  remove() {
     this.output = this.output.substring(0, this.output.length - 1);
     if (this.output.length === 0) {
       this.output = '0';
