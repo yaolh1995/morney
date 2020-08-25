@@ -17,6 +17,7 @@ export default class Types extends Vue {
     if (type !== "+" && type !== "-") {
       throw new Error("type is unknown");
     }
+    console.log(type);
     this.type=type;//=template里的传参
     this.$store.commit('updateRecordType',type)
   }

@@ -29,7 +29,7 @@ const store = new Vuex.Store ( {
 
     updateSelectedTags(state, tags: string[]) {state.record.tags = tags;},
 
-    updateRecordType(state, tags: string[]) {state.record.tags = tags;},
+    updateRecordType(state, type: string) {state.record.type = type;},
 
     updateRecordNumber(state, number: number) {state.record.number = number;},
 
