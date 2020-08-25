@@ -1,13 +1,9 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:number="onUpdateNumber"
-               @update:record="onUpdateRecord"/>
-    <Types @update:type="onUpdateType"/>
-    <Notes @update:notes="onUpdateNotes"/>
-    <Tags :dataSource.tags.sync="dataSource.tags"
-          @update:selectedTags="onUpdateSelectedTags"
-          @update:dataSource.tags="onUpdateDataSource"
-    />
+    <NumberPad/>
+    <Types/>
+    <Notes/>
+    <Tags/>
   </Layout>
 </template>
 
@@ -18,18 +14,13 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
-import recordListModel from '@/models/recordListModel'
+
 @Component ( {
   components: {NumberPad, Types, Notes, Tags},
 } )
 export default class Money extends Vue {
-  recordList: RecordItem[] =recordListModel.fetch();
-  dataSource: RecordItem = {
-    tags: ['吃饭', '请客', '买', '交通'],
-    type: '-',
-    number: 0,
-    notes: ''
-  };
+  init() { return this.$store.commit ( 'fetch' );}
+  //此处需要return,才能获取全局的数据
   record: RecordItem = {
     tags: [],
     type: '-',
@@ -37,36 +28,15 @@ export default class Money extends Vue {
     notes: '',
   };
 
-  onUpdateDataSource(newTags: string[]) {
-    this.dataSource.tags = newTags;
+
+  createRecord() {
+    this.$store.commit ( 'createRecord', this.record );
   };
 
-  onUpdateSelectedTags(newSelectedTags: string[]) {
-    this.record.tags = newSelectedTags;
-  };
-
-  onUpdateType(type: string) {
-    this.record.type = type;
-  };
-
-  onUpdateNotes(value: string) {
-    this.record.notes = value;
-  };
-
-  onUpdateNumber(number: number) {
-    this.record.number = number;
-  };
-
-  onUpdateRecord() {
-    let record1 = JSON.parse ( JSON.stringify (this.record) );
-    record1.createAt = new Date ();
-   this.recordList.push ( record1 );
-  };
-
-  @Watch ( 'recordList' )
-  onRecordListChange() {
-   if (this.record.notes!=='') {window.alert ( '记了一笔' + '“' + this.record.notes + '”' );}
-    recordListModel.save (this.recordList);
+  @Watch ( 'this.$state.recordList' )
+  onRecordChange() {
+    if (this.record.notes !== '') {window.alert ( '记了一笔' + '“' + this.record.notes + '”' );}
+    this.$store.commit ( 'save', this.record );
   }
 }
 </script>

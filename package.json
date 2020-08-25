@@ -10,13 +10,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dayjs": "^1.8.34",
+    "es6-promise": "^4.2.8",
     "register-service-worker": "^1.7.1",
     "svg-sprite-loader": "^5.0.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
@@ -42,5 +44,6 @@
   },
   "main": "index.js",
   "author": "yaolh <347046045@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "git@github.com:yaolh1995/morney.git"
 }

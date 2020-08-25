@@ -22,11 +22,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import store from '@/store';
 
 @Component
 
 export default class NumberPad extends Vue {
   output = '';
+
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -35,14 +37,14 @@ export default class NumberPad extends Vue {
       return;
     }
     if (this.output === '0') {
-      if ('0123456789'.indexOf(input) >= 0) {
+      if ('0123456789'.indexOf ( input ) >= 0) {
         this.output = input;
       } else {
         this.output += input;
       }
       return;
     } //首位0情况判断；
-    if (this.output.indexOf('.') >= 0 && input === '.') {
+    if (this.output.indexOf ( '.' ) >= 0 && input === '.') {
       return;
     }
     //首位.情况判断；.只出现一次；
@@ -52,16 +54,19 @@ export default class NumberPad extends Vue {
   clear() {
     this.output = '0';
   }
+
   remove() {
-    this.output = this.output.substring(0, this.output.length - 1);
+    this.output = this.output.substring ( 0, this.output.length - 1 );
     if (this.output.length === 0) {
       this.output = '0';
     }
   }
 
   ok() {
-    this.$emit('update:number', this.output);
-    this.$emit('update:record');
+    this.$store.commit ( 'updateRecordNumber', this.output );
+    this.$store.commit ( 'fetch' );
+    this.$store.commit ( 'createRecord' );
+    this.$store.commit ( 'save' );
     this.output = '0';
   } //提交output数据；
 }

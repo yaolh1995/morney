@@ -15,11 +15,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component,Prop} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
+
 @Component
 export default class Tags extends Vue {
-  @Prop () readonly dataSource!: string[];
+  get dataSource() {
+   return  this.$store.state.dataSource.tags;
+  }
   selectedTags: String[] = [];
+
   toggle(tag: string) {
     const index = this.selectedTags.indexOf ( tag );
     index >= 0 ? this.selectedTags.splice ( index, 1 ) : this.selectedTags.push ( tag );
@@ -27,12 +31,12 @@ export default class Tags extends Vue {
   };
 
   create() {
-          let name = window.prompt ( '请输入标签名' );
-      while (name === '') {
-        name = window.prompt ( '请输入标签名' );
-      }
-      if (name !== null) {
-        this.$emit ( 'update:dataSource', [...this.dataSource, name] );
+    let name = window.prompt ( '请输入标签名' );
+    while (name === '') {
+      name = window.prompt ( '请输入标签名' );
+    }
+    if (name !== null) {
+      this.$store.commit( 'updateDataSource', name );
     }
   }
 }

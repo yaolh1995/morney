@@ -3,5 +3,12 @@ type RecordItem={
   type:string,
   number:number,
   notes:string,
-  createdAt?:Date
+  createdAt?:string
+}
+
+type RootState = {
+  recordList: RecordItem[];
+  dataSource: RecordItem;
+  record: RecordItem;
+  localStageName: string;
 }
