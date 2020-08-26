@@ -27,7 +27,7 @@ export default class Tags extends Vue {
   toggle(tag: string) {
     const index = this.selectedTags.indexOf ( tag );
     index >= 0 ? this.selectedTags.splice ( index, 1 ) : this.selectedTags.push ( tag );
-    this.$emit ( 'update:selectedTags', this.selectedTags );
+    this.$store.commit( 'updateSelectedTags', this.selectedTags );
   };
 
   create() {

@@ -30,13 +30,11 @@ const store = new Vuex.Store ( {
     fetch(state) {
       state.recordList=JSON.parse ( localStorage.getItem ( state.localStageName )! ) || [];
       if (localStorage.getItem ( 'tags' )!==null){
-        console.log('fuck')
         state.dataSource.tags=JSON.parse ( localStorage.getItem ( 'tags' )! ) || [];
       }
     },
-
-    updateSelectedTags(state, tags: string[]) {state.record.tags = tags;},
-
+    updateSelectedTags(state, tags: string[]) {state.record.tags = tags;
+    },
     updateRecordType(state, type: string) {state.record.type = type;},
 
     updateRecordNumber(state, number: number) {state.record.number = number;},
@@ -51,15 +49,10 @@ const store = new Vuex.Store ( {
 
     updateTags(state, name: string) {
       state.dataSource.tags = [...state.dataSource.tags, name];
-      console.log ( state.dataSource.tags );
     },
 
     renameTag(state, payload: { id: number, name: string }) {
       state.dataSource.tags[payload.id]=payload.name;
-      console.log(state.dataSource.tags[payload.id])
-      console.log(payload.id)
-      console.log(state.dataSource.tags)
-      console.log("here")
     },
     removeTag(state,index:number) {
       state.dataSource.tags.splice(index,1);
