@@ -2,8 +2,7 @@
   <layout>
     <ul>
       <li v-for="(item,index) in tagList" :key="index"
-          @click="removeTag(item.id)"
-       >
+          @click="renameTag(item.id)">
         {{ item.tag }}
       </li>
     </ul>
@@ -42,8 +41,18 @@ export default class Labels extends Vue {
     this.$store.commit ( 'save' );
   }
 
-  renameTag(name:string, id:number) {
-    this.$store.commit ( 'renameTag', name,id );
+  renameTag(id: number) {
+    let name = window.prompt ( '请输入新标签名' );
+    while (name === '') {
+      name = window.prompt ( '请输入新标签名' );
+    }
+    if (name !== null) {
+      console.log ( id );
+      const payload = {id, name};
+      this.$store.commit ( 'renameTag', payload );
+      this.$store.commit ( 'save' );
+      this.$store.commit ( 'fetch' );
+    }
   }
 
   createTag() {

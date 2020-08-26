@@ -55,8 +55,11 @@ const store = new Vuex.Store ( {
     },
 
     renameTag(state, payload: { id: number, name: string }) {
-
       state.dataSource.tags[payload.id]=payload.name;
+      console.log(state.dataSource.tags[payload.id])
+      console.log(payload.id)
+      console.log(state.dataSource.tags)
+      console.log("here")
     },
     removeTag(state,index:number) {
       state.dataSource.tags.splice(index,1);
