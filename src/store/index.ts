@@ -22,9 +22,17 @@ const store = new Vuex.Store ( {
     }
   } as RootState,
   mutations: {
-    updateDataSource(state, name: string) {
-      state.dataSource.tags = [...state.dataSource.tags, name];
-      console.log ( state.dataSource.tags );
+    save(state) {
+      window.localStorage.setItem ( state.localStageName, JSON.stringify ( state.recordList ) );
+      window.localStorage.setItem ( 'tags', JSON.stringify ( state.dataSource.tags ) );
+    },
+
+    fetch(state) {
+      state.recordList=JSON.parse ( localStorage.getItem ( state.localStageName )! ) || [];
+      if (localStorage.getItem ( 'tags' )!==null){
+        console.log('fuck')
+        state.dataSource.tags=JSON.parse ( localStorage.getItem ( 'tags' )! ) || [];
+      }
     },
 
     updateSelectedTags(state, tags: string[]) {state.record.tags = tags;},
@@ -41,14 +49,21 @@ const store = new Vuex.Store ( {
       state.recordList.push ( record1 );
     },
 
-    save(state) {
-      window.localStorage.setItem ( state.localStageName, JSON.stringify ( state.recordList ) );
+    updateTags(state, name: string) {
+      state.dataSource.tags = [...state.dataSource.tags, name];
+      console.log ( state.dataSource.tags );
+    },
 
-      },
+    renameTag(state, payload: { id: number, name: string }) {
 
-    fetch(state) {
-      state.recordList=JSON.parse ( localStorage.getItem ( state.localStageName )! ) || [];
-    }
+      state.dataSource.tags[payload.id]=payload.name;
+    },
+    removeTag(state,index:number) {
+      state.dataSource.tags.splice(index,1);
+    },
+
+
+
 
   },
   actions: {},

@@ -4,11 +4,14 @@
     <Tab class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <ul>
       <li v-for="(group,index) in result" :key="index">
-        <h3>{{group.title}}</h3>
+
+        <h3>{{ beautify(group.title) }}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.id">
-            ￥{{item.number}} {{item.createdAt}}</li>
+            ￥{{ item.number }} {{ item.createdAt }}
+          </li>
         </ol>
+        <hr/>
       </li>
     </ul>
     type:{{ type }}
@@ -44,7 +47,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tab from '@/components/Tab.vue';
 import clone from '@/lib/clone';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 @Component ( {
   components: {Tab}
@@ -52,6 +55,22 @@ import dayjs from 'dayjs'
 export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit ( 'fetch' );
+  }
+
+  beautify(string: string) {
+    const day = dayjs ( string );
+    const now = dayjs ();
+    if (day.isSame ( now, 'day' )) {
+      return '今天';
+    } else if (day.isSame ( (now.subtract ( 1, 'day' )) )) {
+      return '昨天';
+    } else if (day.isSame ( (now.subtract ( 2, 'day' )) )) {
+      return '前天';
+    } else if (day.isSame ( now, 'year' )) {
+      return day.format ( 'M月D日' );
+    } else {
+      return day.format ( 'YY年M月D日' );
+    }
   }
 
   get recordList() {
@@ -65,17 +84,19 @@ export default class Statistics extends Vue {
     const hashTable: { [ key: string ]: HashTableValue } = {};
     if (recordList.length === 0) {return [];}
 
-    const newList=clone(recordList)
-        .filter ( r => r.type === this.type )
-        .sort((a,b)=>dayjs(b.createdAt).valueOf()-dayjs(a.createdAt).valueOf());
 
+    const newList = clone ( recordList )
+        .filter ( r => r.type === this.type )
+        .sort ( (a, b) => dayjs ( b.createdAt ).valueOf () - dayjs ( a.createdAt ).valueOf () );
 
     for (let i = 0; i < newList.length; i++) {
       const [date, time] = newList[ i ].createdAt!.split ( 'T' );
-      hashTable[date] = hashTable[ date ] || {title: date, items: []};
-      hashTable[date].items.push (newList[i]);
-    }
+      hashTable[ date ] = hashTable[ date ] || {title: date, items: []};
 
+      newList[ i ].createdAt = dayjs ( newList[ i ].createdAt ).format ( 'H时m分' );
+
+      hashTable[ date ].items.push ( newList[ i ] );
+    }
     return hashTable;
   }
 

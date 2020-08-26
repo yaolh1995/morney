@@ -28,15 +28,18 @@ export default class Money extends Vue {
     notes: '',
   };
 
-
   createRecord() {
     this.$store.commit ( 'createRecord', this.record );
+
   };
 
   @Watch ( 'this.$state.recordList' )
   onRecordChange() {
     if (this.record.notes !== '') {window.alert ( '记了一笔' + '“' + this.record.notes + '”' );}
     this.$store.commit ( 'save', this.record );
+  }
+  beforeCreate() {
+    this.$store.commit ( 'fetch' );
   }
 }
 </script>

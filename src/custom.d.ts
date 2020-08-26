@@ -12,3 +12,5 @@ type RootState = {
   record: RecordItem;
   localStageName: string;
 }
+
+type TagList = { id: Number, tag: String };
