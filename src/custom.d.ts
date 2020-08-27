@@ -11,6 +11,7 @@ type RootState = {
   dataSource: RecordItem;
   record: RecordItem;
   localStageName: string;
+  currentTag:string;
 }
 
 type TagList = { id: Number, tag: String };

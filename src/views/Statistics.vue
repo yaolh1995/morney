@@ -98,6 +98,7 @@ export default class Statistics extends Vue {
       const [date, time] = newList[ i ].createdAt!.split ( 'T' );
       hashTable[ date ] = hashTable[ date ] || {title: date, items: []};
       newList[ i ].createdAt = dayjs ( newList[ i ].createdAt ).format ( 'H时m分' );
+      console.log(hashTable)
       hashTable[ date ].items.push ( newList[ i ] );
     }
     return hashTable;

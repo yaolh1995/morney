@@ -19,12 +19,17 @@ const store = new Vuex.Store ( {
       type: '-',
       number: 0,
       notes: '',
-    }
+    },
+    currentTag:''
   } as RootState,
   mutations: {
     save(state) {
       window.localStorage.setItem ( state.localStageName, JSON.stringify ( state.recordList ) );
       window.localStorage.setItem ( 'tags', JSON.stringify ( state.dataSource.tags ) );
+    },
+    currentTag(state,tag){
+      state.currentTag=tag
+      console.log(state.currentTag)
     },
 
     fetch(state) {

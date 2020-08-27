@@ -2,14 +2,8 @@
   <layout>
     <ul>
       <li v-for="(item,index) in tagList" :key="index"
-          @click="currentTag(item.tag)"
-      >
-        <router-link :to="{path: `/EditLabels/${item.id}`}"
-
-        >
-        {{ item.id }}
-        {{ item.tag }}
-        </router-link>
+          @click="renameTag(item.id)">
+       fuck
       </li>
     </ul>
 
@@ -28,7 +22,7 @@ import FormItem from '@/FormItem.vue';
 @Component ( {
   components: {FormItem}
 } )
-export default class Labels extends Vue {
+export default class EditLabels extends Vue {
   newTagName = '';
 
 
@@ -41,10 +35,6 @@ export default class Labels extends Vue {
     }
     return tagList;
   };
-
-  currentTag(tag:string){
-    this.$store.commit("currentTag",tag)
-  }
 
   removeTag(id: number) {
     this.$store.commit ( 'removeTag', id );

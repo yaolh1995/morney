@@ -4,6 +4,7 @@ import Statistics from '@/views/Statistics.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import page from '@/views/404page.vue';
+import EditLabels from '@/components/EditLabels.vue';
 
 Vue.use(VueRouter)
 /* const routeTable={
@@ -20,6 +21,11 @@ Vue.use(VueRouter)
     name: 'Money',
     component: Money
   },
+    {
+      path: '/EditLabels/：id',
+      name: 'EditLabels',
+      component: EditLabels
+    },
   {
     path: '/Labels',
     name: 'Labels',
