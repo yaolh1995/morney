@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{ fileName }}
     <label class="notes">
       <span class="name">{{ fileName }}</span>
-      <input type="text" v-model.lazy="input" placeholder="placeholder"  />
+      <input type="text" v-model.lazy="input" :placeholder="this.placeholder"
+      />
     </label>
   </div>
 </template>
@@ -11,14 +11,14 @@
 import Vue from 'vue';
 import {Component, Watch,Prop} from 'vue-property-decorator';
 @Component
-export default class Notes extends Vue {
+export default class FormItem extends Vue {
   input = '';
   @Prop({default:''})readonly fileName!:String;
   @Prop()placeholder?:string;
 
   @Watch('input')
-  update(tagName: string) {
-    this.$emit('update:tagName', tagName);
+  update() {
+    this.$emit('update:value', this.input);
   }
 };
 </script>

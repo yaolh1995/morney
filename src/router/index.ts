@@ -22,7 +22,7 @@ Vue.use(VueRouter)
     component: Money
   },
     {
-      path: '/EditLabels/：id',
+      path: '/EditLabels/:id',
       name: 'EditLabels',
       component: EditLabels
     },

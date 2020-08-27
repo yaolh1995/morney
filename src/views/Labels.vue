@@ -2,21 +2,17 @@
   <layout>
     <ul>
       <li v-for="(item,index) in tagList" :key="index"
-          @click="currentTag(item.tag)"
-      >
-        <router-link :to="{path: `/EditLabels/${item.id}`}"
-
-        >
+          @click="currentTag(item.tag)
+          currentId(item.id)">
         {{ item.id }}
         {{ item.tag }}
+        <router-link :to="{path: `/EditLabels/${item.id}`}">
+          <Icon name="go"/>
         </router-link>
+
       </li>
     </ul>
-
     <button class="" @click="createTag">新增标签</button>
-    <FormItem file-name="标签名" placeholder="请输入新标签名"
-              :content.sync="newTagName"
-    ></FormItem>
   </layout>
 </template>
 
@@ -31,7 +27,6 @@ import FormItem from '@/FormItem.vue';
 export default class Labels extends Vue {
   newTagName = '';
 
-
   get tagList() {
     const tags: string[] = this.$store.state.dataSource.tags;
     const tagList: TagList[] = [];
@@ -42,27 +37,17 @@ export default class Labels extends Vue {
     return tagList;
   };
 
-  currentTag(tag:string){
-    this.$store.commit("currentTag",tag)
+  currentTag(tag: string) {
+    this.$store.commit ( 'currentTag', tag );
+  }
+
+  currentId(id: number) {
+    this.$store.commit ( 'currentId', id );
   }
 
   removeTag(id: number) {
     this.$store.commit ( 'removeTag', id );
     this.$store.commit ( 'save' );
-  }
-
-  renameTag(id: number) {
-    let name = window.prompt ( '请输入新标签名' );
-    while (name === '') {
-      name = window.prompt ( '请输入新标签名' );
-    }
-    if (name !== null) {
-      console.log ( id );
-      const payload = {id, name};
-      this.$store.commit ( 'renameTag', payload );
-      this.$store.commit ( 'save' );
-      this.$store.commit ( 'fetch' );
-    }
   }
 
   createTag() {

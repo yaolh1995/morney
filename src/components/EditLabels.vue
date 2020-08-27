@@ -1,16 +1,11 @@
 <template>
   <layout>
-    <ul>
-      <li v-for="(item,index) in tagList" :key="index"
-          @click="renameTag(item.id)">
-       fuck
-      </li>
-    </ul>
-
-    <button class="" @click="createTag">新增标签</button>
-    <FormItem file-name="标签名" placeholder="请输入新标签名"
-              :content.sync="newTagName"
+        <span class="icon-wrapper" @click="goBack">
+          <Icon name="back" /></span> <span class="title">{{ currentTag }}</span>
+    <FormItem file-name="修改" placeholder="请输入新标签名"
+              :content.sync="tagName" @update:value="updateTagName"
     ></FormItem>
+    <span class="icon-wrapper" @click="removeTag"> <Icon name="money" /></span>
   </layout>
 </template>
 
@@ -23,21 +18,32 @@ import FormItem from '@/FormItem.vue';
   components: {FormItem}
 } )
 export default class EditLabels extends Vue {
-  newTagName = '';
+  tagName = '';
 
-
-  get tagList() {
-    const tags: string[] = this.$store.state.dataSource.tags;
-    const tagList: TagList[] = [];
-    for (let i = 0; i < tags.length; i++) {
-      const tagListItem = {id: i, tag: tags[ i ]};
-      tagList.push ( tagListItem );
-    }
-    return tagList;
+  get currentTag() {
+    return this.$store.state.currentTag;
   };
 
-  removeTag(id: number) {
-    this.$store.commit ( 'removeTag', id );
+  get currentId() {
+    return this.$store.state.currentId;
+  };
+
+  goBack() {
+    this.$router.go ( -1 );
+  }
+
+  removeTag() {
+    console.log("fuck")
+    this.$store.commit ( 'removeTag', this.currentId );
+    this.$store.commit ( 'save' );
+    this.$router.go ( -1 );
+  }
+
+  updateTagName(TagName: string) {
+    const payload = {id: this.currentId, name: TagName};
+    console.log ( this.currentTag );
+    this.$store.commit ( 'renameTag', payload );
+    this.$store.commit ( 'currentTag', TagName );
     this.$store.commit ( 'save' );
   }
 
@@ -47,7 +53,6 @@ export default class EditLabels extends Vue {
       name = window.prompt ( '请输入新标签名' );
     }
     if (name !== null) {
-      console.log ( id );
       const payload = {id, name};
       this.$store.commit ( 'renameTag', payload );
       this.$store.commit ( 'save' );
@@ -79,5 +84,15 @@ button {
   color: #999;
   border-bottom: 1px solid;
   padding: 0 4px;
+}
+
+.icon {
+  margin-left: 5px;
+  width: 32px;
+  height: 32px;
+}
+.title{
+padding-left: 50%;
+  padding-right: 50%;
 }
 </style>

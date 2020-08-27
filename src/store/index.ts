@@ -20,7 +20,8 @@ const store = new Vuex.Store ( {
       number: 0,
       notes: '',
     },
-    currentTag:''
+    currentTag:'',
+    currentId:0,
   } as RootState,
   mutations: {
     save(state) {
@@ -29,9 +30,10 @@ const store = new Vuex.Store ( {
     },
     currentTag(state,tag){
       state.currentTag=tag
-      console.log(state.currentTag)
     },
-
+    currentId(state,id){
+      state.currentId=id
+    },
     fetch(state) {
       state.recordList=JSON.parse ( localStorage.getItem ( state.localStageName )! ) || [];
       if (localStorage.getItem ( 'tags' )!==null){
@@ -58,6 +60,9 @@ const store = new Vuex.Store ( {
 
     renameTag(state, payload: { id: number, name: string }) {
       state.dataSource.tags[payload.id]=payload.name;
+      console.log(payload.id)
+      console.log(payload.name)
+      console.log(state.dataSource.tags)
     },
     removeTag(state,index:number) {
       state.dataSource.tags.splice(index,1);

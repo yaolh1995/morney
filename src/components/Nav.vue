@@ -46,7 +46,7 @@ export default {
   }
 
   > .item.selected {
-    color: red;
+    color: black;
   }
 }
 </style>
