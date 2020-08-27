@@ -4,15 +4,15 @@
       <li v-for="(item,index) in tagList" :key="index"
           @click="currentTag(item.tag)
           currentId(item.id)">
-        {{ item.id }}
         {{ item.tag }}
         <router-link :to="{path: `/EditLabels/${item.id}`}">
           <Icon name="go"/>
         </router-link>
 
       </li>
+      <button  @click="createTag">新增标签</button>
     </ul>
-    <button class="" @click="createTag">新增标签</button>
+
   </layout>
 </template>
 
@@ -67,12 +67,16 @@ export default class Labels extends Vue {
 
 };
 </script>
-<style>
+<style lang="scss" scoped>
 button {
   background: transparent;
   border: none;
   color: #999;
   border-bottom: 1px solid;
   padding: 0 4px;
+}
+ul>*{
+  padding-left: 20px;
+  padding-top: 10px;
 }
 </style>

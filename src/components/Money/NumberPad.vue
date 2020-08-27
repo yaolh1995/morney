@@ -87,14 +87,13 @@ export default class NumberPad extends Vue {
 
   .buttons {
     @extend %clearFix;
-
     > button {
       width: 25%;
       height: 64px;
       float: left;
       background: transparent;
       border: none;
-
+      color: #333333;
       &.ok {
         height: 64 * 2px;
         float: right;

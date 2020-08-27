@@ -25,10 +25,6 @@
   &.selected {
     background: #C4C4C4;
 
-    &::after {
-      display: none;
-    }
-
     &.selected::after {
       content: '';
       position: absolute;
@@ -40,6 +36,13 @@
     }
   }
 }
+
+;
+::v-deep .interval-tabs-item {
+  &.selected {
+    background: #C4C4C4;
+  }}
+
 </style>
 <script lang="ts">
 import Vue from 'vue';
@@ -55,20 +58,20 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit ( 'fetch' );
     const now = dayjs ();
-    console.log(dayjs("2020-08-26").isSame(now.subtract ( 1, 'day' )))
+    console.log ( dayjs ( '2020-08-26' ).isSame ( now.subtract ( 1, 'day' ) ) );
   }
 
 
   beautify(string: string) {
     const day = dayjs ( string );
     const now = dayjs ();
-   // console.log((now.subtract ( 1, 'day' )))
- //  console.log(dayjs("2020-08-25").isSame ( (now.subtract ( 1, 'day' )) ))
+    // console.log((now.subtract ( 1, 'day' )))
+    //  console.log(dayjs("2020-08-25").isSame ( (now.subtract ( 1, 'day' )) ))
     if (day.isSame ( now, 'day' )) {
       return '今天';
-    } else if (day.isSame ( now.subtract ( 1, 'day' ),"day") ) {
+    } else if (day.isSame ( now.subtract ( 1, 'day' ), 'day' )) {
       return '昨天';
-    } else if (day.isSame (now.subtract ( 2, 'day' ),"day" )) {
+    } else if (day.isSame ( now.subtract ( 2, 'day' ), 'day' )) {
       return '前天';
     } else if (day.isSame ( now, 'year' )) {
       return day.format ( 'M月D日' );
@@ -89,7 +92,6 @@ export default class Statistics extends Vue {
     if (recordList.length === 0) {return [];}
 
 
-
     const newList = clone ( recordList )
         .filter ( r => r.type === this.type )
         .sort ( (a, b) => dayjs ( b.createdAt ).valueOf () - dayjs ( a.createdAt ).valueOf () );
@@ -98,7 +100,7 @@ export default class Statistics extends Vue {
       const [date, time] = newList[ i ].createdAt!.split ( 'T' );
       hashTable[ date ] = hashTable[ date ] || {title: date, items: []};
       newList[ i ].createdAt = dayjs ( newList[ i ].createdAt ).format ( 'H时m分' );
-      console.log(hashTable)
+      console.log ( hashTable );
       hashTable[ date ].items.push ( newList[ i ] );
     }
     return hashTable;

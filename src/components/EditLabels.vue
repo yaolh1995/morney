@@ -1,11 +1,13 @@
 <template>
   <layout>
         <span class="icon-wrapper" @click="goBack">
-          <Icon name="back" /></span> <span class="title">{{ currentTag }}</span>
+          <Icon name="back"/></span>
+    <span class="title">{{ currentTag }}</span>
+
     <FormItem file-name="修改" placeholder="请输入新标签名"
               :content.sync="tagName" @update:value="updateTagName"
     ></FormItem>
-    <span class="icon-wrapper" @click="removeTag"> <Icon name="money" /></span>
+    <div class="title" @click="removeTag"> 点击删除此标签 <strong>X</strong></div>
   </layout>
 </template>
 
@@ -33,7 +35,7 @@ export default class EditLabels extends Vue {
   }
 
   removeTag() {
-    console.log("fuck")
+    alert ( '删除标签成功' );
     this.$store.commit ( 'removeTag', this.currentId );
     this.$store.commit ( 'save' );
     this.$router.go ( -1 );
@@ -54,9 +56,11 @@ export default class EditLabels extends Vue {
     }
     if (name !== null) {
       const payload = {id, name};
+      alert ( '修改标签' + '→' + payload.name );
       this.$store.commit ( 'renameTag', payload );
       this.$store.commit ( 'save' );
       this.$store.commit ( 'fetch' );
+
     }
   }
 
@@ -91,8 +95,11 @@ button {
   width: 32px;
   height: 32px;
 }
-.title{
-padding-left: 50%;
-  padding-right: 50%;
+
+.title {
+  display: flex;
+  justify-content: center;
 }
+
+
 </style>
