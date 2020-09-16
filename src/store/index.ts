@@ -55,7 +55,11 @@ const store = new Vuex.Store ( {
     },
 
     updateTags(state, name: string) {
-      state.dataSource.tags = [...state.dataSource.tags, name];
+      for ( let i=0;i<=state.dataSource.tags.length;i++) {
+        if (state.dataSource.tags[ i ] === name) {alert ( '标签名重复，请重新输入' );
+        return}
+      }
+        state.dataSource.tags = [...state.dataSource.tags, name]
     },
 
     renameTag(state, payload: { id: number, name: string }) {

@@ -1,9 +1,12 @@
 const path = require('path')
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-      ? '/morney-gp/'
+      ? '/morney-page/'
       : '/',
-
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ],
   lintOnSave: false,
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icon')

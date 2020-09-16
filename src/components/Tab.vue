@@ -40,16 +40,15 @@ export default class Tab extends Vue {
   display: flex;
   text-align: center;
   font-size: 24px;
+  color: #666;
   > li {
-    background: white;
+    background: #b5b5b5;
     width: 50%;
     height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    border-radius: 20px 20px 0px 0px;
-    border:1px solid white ;
     &.selected::after {
       content: '';
       position: absolute;

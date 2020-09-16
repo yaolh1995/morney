@@ -1,13 +1,19 @@
 <template>
   <layout>
-        <span class="icon-wrapper" @click="goBack">
-          <Icon name="back"/></span>
-    <span class="title">{{ currentTag }}</span>
+    <div class="navBar"  @click="goBack">
+      <Icon class="back" name="back"/>
+      <span class="title">编辑标签:{{ currentTag }}</span>
+      <span/>
 
+    </div>
+    <div class="form-wrapper">
     <FormItem file-name="修改" placeholder="请输入新标签名"
               :content.sync="tagName" @update:value="updateTagName"
     ></FormItem>
-    <div class="title" @click="removeTag"> 点击删除此标签 <strong>X</strong></div>
+    </div>
+    <div  class="button-wrapper">
+    <Button class="button"  @click="removeTag"><strong>点击删除此标签</strong></Button>
+    </div>
   </layout>
 </template>
 
@@ -81,25 +87,36 @@ export default class EditLabels extends Vue {
 
 };
 </script>
-<style>
-button {
-  background: transparent;
-  border: none;
-  color: #999;
-  border-bottom: 1px solid;
-  padding: 0 4px;
-}
-
-.icon {
-  margin-left: 5px;
-  width: 32px;
-  height: 32px;
-}
-
-.title {
+<style lang="scss" scoped>
+.navBar {
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+> .title {
 }
+> .back {
+  width: 24px;
+  height: 24px;
+}}
 
-
+.form-wrapper {
+  background: white;
+  margin-top: 8px;
+}
+.button {
+  background: #767676;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  height: 40px;
+  padding: 0 16px;
+  &-wrapper {
+    text-align: center;
+    margin-top: 44-16px;
+  }
+}
 </style>

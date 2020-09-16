@@ -61,9 +61,9 @@ export default class NumberPad extends Vue {
       this.output = '0';
     }
   }
-
   ok() {
-    this.$store.commit ( 'updateRecordNumber', this.output );
+    alert("记了一笔~")
+    this.$store.commit ( 'updateRecordNumber', parseFloat(this.output) );
     this.$store.commit ( 'fetch' );
     this.$store.commit ( 'createRecord' );
     this.$store.commit ( 'save' );

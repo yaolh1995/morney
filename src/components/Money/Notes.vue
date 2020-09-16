@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ value }}
     <label class="notes">
       <span class="name">备注</span>
       <input type="text" v-model.lazy="value" placeholder="在这里输入备注"/>

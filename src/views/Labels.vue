@@ -1,18 +1,21 @@
 <template>
   <layout>
-    <ul>
-      <li v-for="(item,index) in tagList" :key="index"
+    <ul class="tags">
+      <li class="tag"
+          v-for="(item,index) in tagList" :key="index"
           @click="currentTag(item.tag)
           currentId(item.id)">
-        {{ item.tag }}
+        <span class="tagName"> {{ item.tag }}</span>
         <router-link :to="{path: `/EditLabels/${item.id}`}">
           <Icon name="go"/>
         </router-link>
 
       </li>
-      <button  @click="createTag">新增标签</button>
+      <div class="createTag-wrapper">
+      <Button class="createTag"
+          @click="createTag">新增标签</Button>
+      </div>
     </ul>
-
   </layout>
 </template>
 
@@ -68,15 +71,36 @@ export default class Labels extends Vue {
 };
 </script>
 <style lang="scss" scoped>
-button {
-  background: transparent;
-  border: none;
-  color: #999;
-  border-bottom: 1px solid;
-  padding: 0 4px;
+.tags {
+  background: white;
+  font-size: 16px;
+  > .tag {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E6E6E6;
+    svg {
+      width: 24px;
+      height: 24px;
+      color: #666;
+      margin-right: 16px;
+    }
+  }
 }
-ul>*{
-  padding-left: 20px;
-  padding-top: 10px;
+.tagName{
+  padding-left: 18px;
+}
+.createTag {
+  background: #767676;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  height: 40px;
+  padding: 0 16px;
+  &-wrapper {
+    text-align: center;
+    margin-top: 44-16px;
+  }
 }
 </style>
